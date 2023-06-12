@@ -31,7 +31,6 @@ public class UsersController {
         List<User> users = userRepo.findAll();
       
         //end of database call
-
         model.addAttribute("us", users);
         return "users/showAll";
     }
@@ -68,6 +67,12 @@ public class UsersController {
     }
 
     // update student information in database
+
+    @PostMapping("/users/edit")
+    public String update(Model model){
+        return "/users/update";
+    }
+
     @PutMapping("/users/edit")
     public String editUser(@PathVariable int id, @RequestParam Map<String, String> currentuser){
         User updateuser = userRepo.findById(id).get();
@@ -80,12 +85,18 @@ public class UsersController {
 
     //delete student from database
     @DeleteMapping("/users/delete/{uid}")
-    public String deleteUser(Model model, @PathVariable String uid){
+    public String deleteUser(@PathVariable String uid){
+        
         System.out.println("DELETE user");
         int id = Integer.parseInt(uid);
         User student = userRepo.findById(id).get();
-        userRepo.delete(student);
-        return "/users/deletedUser";
+        if (student != null){
+            userRepo.delete(student);
+        }
+        else{
+            return "/users/deleted";
+        }
+        return "/users/view";
     }
 
 }
