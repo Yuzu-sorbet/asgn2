@@ -2,7 +2,6 @@ package com.asn2.asn2.controllers;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.asn2.asn2.models.User;
@@ -68,23 +68,24 @@ public class UsersController {
     }
 
     // update student information in database
-    //@PutMapping("/users/edit")
+    @PutMapping("/users/edit")
+    public String editUser(@PathVariable int id, @RequestParam Map<String, String> currentuser){
+        User updateuser = userRepo.findById(id).get();
+        updateuser.setName(currentuser.get("name"));
+        userRepo.save(updateuser);
+        return "/users/view";
+
+    }
   
 
     //delete student from database
     @DeleteMapping("/users/delete/{uid}")
-    public String deleteUser(@PathVariable String uid){
+    public String deleteUser(Model model, @PathVariable String uid){
         System.out.println("DELETE user");
         int id = Integer.parseInt(uid);
-        Optional<User> student = userRepo.findById(id);
-        if(student.isPresent()){
-            userRepo.delete(student.get());
-        }
-        else{
-            throw new RuntimeException("Student not found for id" + uid);
-        }
-        //userRepo.deleteById(id);
-        return "/users/showAll";
+        User student = userRepo.findById(id).get();
+        userRepo.delete(student);
+        return "/users/deletedUser";
     }
 
 }

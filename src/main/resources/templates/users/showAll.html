@@ -10,12 +10,14 @@
     <script>
         function confirmDelete(){
             var uid = prompt("Enter the UID of the student you wish to delete.");
-            if (confirm("Are you sure you want to delete this student?")){
-                console.log(uid);
-                fetch('/users/delete' + uid, {
+            if(uid){
+                if (confirm("Are you sure you want to delete this student?")){
+                    console.log(uid);
+                    fetch('/users/delete/' + uid, {
                     method: 'DELETE'
-                });
-                console.log("deleted");
+                    });
+                    console.log("deleted");
+                }
             }
         }
     </script>
@@ -26,11 +28,9 @@
             <div class="col-md-12">
                 <h1>STUDENTS</h1>
                 <form action="/users/addstudent" method="post">
-					<input class="btn btn-primary" type="submit" value="ADD NEW STUDENT"></input>
+					<input class="btn btn-primary" type="submit" style="float:left;" value="ADD NEW STUDENT"></input>
 				</form>
-                <form action="/users/delete" method="post">
-					<input class="btn btn-primary" type="submit" value="DELETE STUDENT BY UID" onclick="confirmDelete()"></input>
-				</form>
+                <input class="btn btn-secondary" type="submit" style="float:left;" value="DELETE STUDENTS BY UID" onclick="confirmDelete()"></input>
                 <table class="table">
                     <thead>
                         <tr>
@@ -42,41 +42,45 @@
                             <th scope="col">Weight</th>
                             <th scope="col">GPA</th>
                             <th scope="col">UID</th>
+                            <th scope="col">Manage</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <li th:each="user:${us}">
                         <tr>
-
-                                <td><li th:each="user:${us}">
-                                    <span th:text="${user.name}"></span>
-                                </li></td>
-                                <td><li th:each="user:${us}">
-                                    <span th:text="${user.password}"></span>
-                                </li></td>
-                                <td><li th:each="user:${us}">
-                                    <span th:text="${user.email}"></span>
-                                </li></td>
-                                <td><li th:each="user:${us}">
-                                    <span th:text="${user.haircolor}"></span>
-                                </li></td>
-                                <td><li th:each="user:${us}">
-                                    <span th:text="${user.height}"></span>
-                                </li></td>
-                                <td><li th:each="user:${us}">
-                                    <span th:text="${user.weight}"></span>
-                                </li></td>
-                                <td><li th:each="user:${us}">
-                                    <span th:text="${user.gpa}"></span>
-                                </li></td>
                                 <td>
-                                    <li th:each="user:${us}">
-                                        <span th:text="${user.uid}"></span>
-                                    </li>
+                                    <span th:text="${user.name}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${user.password}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${user.email}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${user.haircolor}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${user.height}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${user.weight}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${user.gpa}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${user.uid}"></span>
+                                </td>
+                                <td>
                                     <form action="/users/edit" method="post">
                                         <input class="btn btn-primary btn-sm" type="submit" value="EDIT"></input>
                                     </form>
+                                    
+                                </td>
                                 
                         </tr>
+                        </li>
                     </tbody>
                 </table>
             </div>
