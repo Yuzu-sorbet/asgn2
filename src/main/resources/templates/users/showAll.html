@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <script>
+        function confirmDelete(){
+            var uid = prompt("Enter the UID of the student you wish to delete.");
+            if (confirm("Are you sure you want to delete this student?")){
+                console.log(uid);
+                fetch('/users/delete' + uid, {
+                    method: 'DELETE'
+                });
+                console.log("deleted");
+            }
+        }
+    </script>
+</head>
+<body>
+    <main class="container-fluid">
+        <div class="row content-center">
+            <div class="col-md-12">
+                <h1>STUDENTS</h1>
+                <form action="/users/addstudent" method="post">
+					<input class="btn btn-primary" type="submit" value="ADD NEW STUDENT"></input>
+				</form>
+                <form action="/users/delete" method="post">
+					<input class="btn btn-primary" type="submit" value="DELETE STUDENT BY UID" onclick="confirmDelete()"></input>
+				</form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Hair Color</th>
+                            <th scope="col">Height</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">GPA</th>
+                            <th scope="col">UID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                                <td><li th:each="user:${us}">
+                                    <span th:text="${user.name}"></span>
+                                </li></td>
+                                <td><li th:each="user:${us}">
+                                    <span th:text="${user.password}"></span>
+                                </li></td>
+                                <td><li th:each="user:${us}">
+                                    <span th:text="${user.email}"></span>
+                                </li></td>
+                                <td><li th:each="user:${us}">
+                                    <span th:text="${user.haircolor}"></span>
+                                </li></td>
+                                <td><li th:each="user:${us}">
+                                    <span th:text="${user.height}"></span>
+                                </li></td>
+                                <td><li th:each="user:${us}">
+                                    <span th:text="${user.weight}"></span>
+                                </li></td>
+                                <td><li th:each="user:${us}">
+                                    <span th:text="${user.gpa}"></span>
+                                </li></td>
+                                <td>
+                                    <li th:each="user:${us}">
+                                        <span th:text="${user.uid}"></span>
+                                    </li>
+                                    <form action="/users/edit" method="post">
+                                        <input class="btn btn-primary btn-sm" type="submit" value="EDIT"></input>
+                                    </form>
+                                
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
