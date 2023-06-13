@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.asn2.asn2.models.User;
 import com.asn2.asn2.models.UserRepository;
@@ -35,6 +37,7 @@ public class UsersController {
         return "users/showAll";
     }
 
+    //endpoint for opening up the add student input form
     @PostMapping("/users/addstudent")
     public String redirectAdd(Model model){
         System.out.println("redirect to add students page");
@@ -52,21 +55,20 @@ public class UsersController {
         String newhaircol = newuser.get("haircolor");
         int newWeight = Integer.parseInt(newuser.get("weight"));
         int newHeight = Integer.parseInt(newuser.get("height"));
-        float newGpa = Integer.parseInt(newuser.get("gpa"));
+        float newGpa = Float.parseFloat(newuser.get("gpa"));
         userRepo.save(new User(newName, newPwd, newEmail, newhaircol, newWeight, newHeight, newGpa));
         response.setStatus(201);
         return "users/addedUser";
     }
 
-    //return to student view 
+    //return to main page from input form
     @PostMapping("/users/back")
     public String backButton(Model model){
         System.out.println("Back to student view page");
-
         return "redirect:/users/view";
     }
     
-    //see visual info of student 
+    //see visual representation of student based on height/weight  
     @PostMapping("/users/detail")
     public String studentDetail(Model model, @RequestParam Map<String, String> curstudent ){
         System.out.println("Go to detailed student view.");
@@ -76,46 +78,25 @@ public class UsersController {
         return "users/info";
     }
 
-    // update student information in database
-    //redirect to update student page
-    @PostMapping("/users/edit")
-    public String updatePage(Model model, @RequestParam Map<String, String> updateUser){
+    // open up student info in edit view and allow user to edit all fields except uid
+    @GetMapping("/users/updating/{uid}")
+    public ModelAndView updatePage(@PathVariable String uid){
         //get user-inputted uid 
-        int id = Integer.parseInt(updateUser.get("id"));
-        User updateuser = userRepo.findById(id).get();
-        model.addAttribute("usupdate", updateuser);
-        return "users/update";
-    }
-    // allow users to change student info
-    @PutMapping("/users/updating/{uid}")
-    public String editUser(@PathVariable String uid, @RequestParam Map<String, String> currentuser, Model model){
-        
         int id = Integer.parseInt(uid);
+        //retrieve student info from database and display in input boxes
+        ModelAndView editView = new ModelAndView("/users/update");
         User updateuser = userRepo.findById(id).get();
-
-        String newName = currentuser.get("name");
-        String newPwd = currentuser.get("password");
-        String newEmail = currentuser.get("email");
-        String newhaircol = currentuser.get("haircolor");
-        int newWeight = Integer.parseInt(currentuser.get("weight"));
-        int newHeight = Integer.parseInt(currentuser.get("height"));
-        float newGpa = Integer.parseInt(currentuser.get("gpa"));
-
-        updateuser.setName(newName);
-        updateuser.setPassword(newPwd);
-        updateuser.setEmail(newEmail);
-        updateuser.setHaircolor(newhaircol);
-        updateuser.setHeight(newHeight);
-        updateuser.setWeight(newWeight);
-        updateuser.setGpa(newGpa);
-        //update the new student
-        userRepo.save(updateuser);
-        model.addAttribute("us", updateuser);
-        return "redirect:/users/view";
-
+        editView.addObject("update", updateuser);
+        return editView;
     }
-  
 
+    //save edited student info and return to main page with updates
+    @PostMapping("/users/save")
+    public String saveStudentinfo(@ModelAttribute("update") User user){
+        userRepo.save(user);
+        return "redirect:/users/view";
+    }
+    
     //delete student from database
     @DeleteMapping("/users/delete/{uid}")
     public String deleteUser(@PathVariable String uid){

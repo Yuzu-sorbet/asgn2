@@ -50,14 +50,6 @@
                     </div>
 
                     <div class="col">
-                        <form action="/users/edit" method="post">
-                    
-                            <input type="number" min="0" id="id" name="id" class="form-control form-control-sm" 
-                                placeholder="UID" required></input>
-                            <input class="btn btn-primary" type="submit" value="Edit Student" ></input>
-                        </form>
-                    </div>
-                    <div class="col">
                         <form action="/users/detail" method="post">
                     
                             <input type="number" min="0" id="id" name="id" class="form-control form-control-sm" 
@@ -67,7 +59,7 @@
                     </div></div>
                 </div>
                 
-                <table class="table">
+                <table class="table table-striped">
                 
                 
                     <thead>
@@ -80,6 +72,7 @@
                             <th scope="col">Weight</th>
                             <th scope="col">GPA</th>
                             <th scope="col">UID</th>
+                            <th scope="col">Manage</th>
                             
                         </tr>
                     </thead>
@@ -110,6 +103,15 @@
                                     </td>
                                     <td>
                                         <span th:text="${user.uid}"></span>
+                                    </td>
+                                    <td>
+                                        <form action="/users/editing" method="post">
+                                
+                                            <a th:href="@{'/users/updating/' + ${user.uid}}" class="btn btn-info btn-sm" role="button">Edit</a>
+                                            
+                            
+                                        
+                                        </form>
                                     </td>
                                 
                                 </tr>
