@@ -79,6 +79,17 @@ public class UsersController {
 
     // open up student info in edit view and allow user to edit all fields except uid
     @GetMapping("/users/updating/{uid}")
+    public String updatePage(Model model, @PathVariable String uid){
+        //get user-inputted uid 
+        int id = Integer.parseInt(uid);
+        //retrieve student info from database and display in input boxes
+        User updateuser = userRepo.findById(id).get();
+        model.addAttribute("update", updateuser);
+        return "users/update";
+    }
+
+    /* 
+     @GetMapping("/users/updating/{uid}")
     public ModelAndView updatePage(@PathVariable String uid){
         //get user-inputted uid 
         int id = Integer.parseInt(uid);
@@ -88,6 +99,7 @@ public class UsersController {
         editView.addObject("update", updateuser);
         return editView;
     }
+    */
 
     //save edited student info and return to main page with updates
     @PostMapping("/users/save")
