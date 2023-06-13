@@ -32,13 +32,13 @@ public class UsersController {
       
         //end of database call
         model.addAttribute("us", users);
-        return "users/showAll";
+        return "/users/showAll";
     }
 
     @PostMapping("/users/addstudent")
     public String redirectAdd(Model model){
         System.out.println("redirect to add students page");
-        return "users/add";
+        return "/users/add";
     }
 
     //endpoint for submitting new students to the database
