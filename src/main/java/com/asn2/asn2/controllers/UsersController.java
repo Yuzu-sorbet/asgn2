@@ -32,13 +32,13 @@ public class UsersController {
       
         //end of database call
         model.addAttribute("us", users);
-        return "/users/showAll";
+        return "users/showAll";
     }
 
     @PostMapping("/users/addstudent")
     public String redirectAdd(Model model){
         System.out.println("redirect to add students page");
-        return "/users/add";
+        return "users/add";
     }
 
     //endpoint for submitting new students to the database
@@ -55,7 +55,7 @@ public class UsersController {
         float newGpa = Integer.parseInt(newuser.get("gpa"));
         userRepo.save(new User(newName, newPwd, newEmail, newhaircol, newWeight, newHeight, newGpa));
         response.setStatus(201);
-        return "/users/addedUser";
+        return "users/addedUser";
     }
 
     //return to student view 
@@ -73,7 +73,7 @@ public class UsersController {
         int id = Integer.parseInt(curstudent.get("id"));
         User student = userRepo.findById(id).get();
         model.addAttribute("userinfo", student);
-        return "/users/info";
+        return "users/info";
     }
 
     // update student information in database
@@ -84,7 +84,7 @@ public class UsersController {
         int id = Integer.parseInt(updateUser.get("id"));
         User updateuser = userRepo.findById(id).get();
         model.addAttribute("usupdate", updateuser);
-        return "/users/update";
+        return "users/update";
     }
     // allow users to change student info
     @PutMapping("/users/updating/{uid}")
@@ -111,7 +111,7 @@ public class UsersController {
         //update the new student
         userRepo.save(updateuser);
         model.addAttribute("us", updateuser);
-        return "/users/view";
+        return "redirect:/users/view";
 
     }
   
@@ -124,7 +124,7 @@ public class UsersController {
         int id = Integer.parseInt(uid);
         User student = userRepo.findById(id).get();
         userRepo.delete(student);
-        return "/users/deletedUser";
+        return "users/deletedUser";
     }
 
 }
