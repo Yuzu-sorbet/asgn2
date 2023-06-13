@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul style="list-style:none;">
+        <li th:each="user:${userinfo}">
+            <label th:text="${user.name}"></label><br>
+            <label th:text="${user.password}"></label>
+            <label th:text="${user.email}"></label>
+            <label th:text="${user.haircolor}"></label>
+            <label th:text="${user.height}"></label>
+            <label th:text="${user.weight}"></label>
+            <label th:text="${user.gpa}"></label>
+            <label th:text="${user.uid}"></label>
+
+        </li>
+    </ul>
+</body>
+</html>

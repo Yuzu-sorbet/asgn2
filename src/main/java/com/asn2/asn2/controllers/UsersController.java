@@ -36,7 +36,7 @@ public class UsersController {
     }
 
     @PostMapping("/users/addstudent")
-    public String redirect(Model model){
+    public String redirectAdd(Model model){
         System.out.println("redirect to add students page");
         return "users/add";
     }
@@ -60,16 +60,26 @@ public class UsersController {
 
     //return to student view 
     @PostMapping("/users/back")
-    public String backBtn(Model model){
+    public String backButton(Model model){
         System.out.println("Back to student view page");
 
         return "redirect:/users/view";
+    }
+    
+    //see visual info of student 
+    @PostMapping("/users/detail")
+    public String studentDetail(Model model, @RequestParam Map<String, String> curstudent ){
+        System.out.println("Go to detailed student view.");
+        int id = Integer.parseInt(curstudent.get("id"));
+        User student = userRepo.findById(id).get();
+        model.addAttribute("userinfo", student);
+        return "/users/info";
     }
 
     // update student information in database
     //redirect to update student page
     @PostMapping("/users/edit")
-    public String update(Model model, @RequestParam Map<String, String> updateUser){
+    public String updatePage(Model model, @RequestParam Map<String, String> updateUser){
         //get user-inputted uid 
         int id = Integer.parseInt(updateUser.get("id"));
         User updateuser = userRepo.findById(id).get();
@@ -114,7 +124,7 @@ public class UsersController {
         int id = Integer.parseInt(uid);
         User student = userRepo.findById(id).get();
         userRepo.delete(student);
-        return "/users/view";
+        return "/users/deletedUser";
     }
 
 }

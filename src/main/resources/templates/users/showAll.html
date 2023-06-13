@@ -16,10 +16,8 @@
                     fetch('/users/delete/' + uid, {
                     method: 'DELETE'
                     });
-                    var box = document.getElementById(uid);
-                    if(box){
-                        box.remove();
-                    }
+                    //refresh page with deleted student - prevent method GET not supported
+                    location.reload();
                     console.log("deleted");
                 }
             else{
@@ -64,7 +62,7 @@
                     
                             <input type="number" min="0" id="id" name="id" class="form-control form-control-sm" 
                                 placeholder="UID" required></input>
-                            <input class="btn btn-primary" type="submit" value="View Student"></input>
+                            <input class="btn btn-primary" type="submit" value="View Student Visuals"></input>
                         </form>
                     </div></div>
                 </div>
@@ -87,35 +85,36 @@
                     </thead>
                     <tbody>
                         <ul style="list-style: none;">
-                        <li th:each="user:${us}">
-                        <tr>
-                                <td>
-                                    <span th:text="${user.name}"></span>
-                                </td>
-                                <td>
-                                    <span th:text="${user.password}"></span>
-                                </td>
-                                <td>
-                                    <span th:text="${user.email}"></span>
-                                </td>
-                                <td>
-                                    <span th:text="${user.haircolor}"></span>
-                                </td>
-                                <td>
-                                    <span th:text="${user.height}"></span>cm
-                                </td>
-                                <td>
-                                    <span th:text="${user.weight}"></span>kg
-                                </td>
-                                <td>
-                                    <span th:text="${user.gpa}"></span>
-                                </td>
-                                <td>
-                                    <span th:text="${user.uid}"></span>
-                                </td>
+                            <li th:each="user:${us}" style="list-style:none;">
+                                <tr>
+                                    <td>
+                                        <span th:text="${user.name}"></span>
+                                    </td>
+                                    <td>
+                                        <span th:text="${user.password}"></span>
+                                    </td>
+                                    <td>
+                                        <span th:text="${user.email}"></span>
+                                    </td>
+                                    <td>
+                                        <span th:text="${user.haircolor}"></span>
+                                    </td>
+                                    <td>
+                                        <span th:text="${user.height}"></span>cm
+                                    </td>
+                                    <td>
+                                        <span th:text="${user.weight}"></span>kg
+                                    </td>
+                                    <td>
+                                        <span th:text="${user.gpa}"></span>
+                                    </td>
+                                    <td>
+                                        <span th:text="${user.uid}"></span>
+                                    </td>
                                 
-                        </tr>
-                        </li></ul>
+                                </tr>
+                            </li>
+                        </ul>
                         
                     </tbody>
                 </table>
