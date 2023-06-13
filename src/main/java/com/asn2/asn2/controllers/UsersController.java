@@ -52,7 +52,7 @@ public class UsersController {
         String newhaircol = newuser.get("haircolor");
         int newWeight = Integer.parseInt(newuser.get("weight"));
         int newHeight = Integer.parseInt(newuser.get("height"));
-        int newGpa = Integer.parseInt(newuser.get("gpa"));
+        float newGpa = Integer.parseInt(newuser.get("gpa"));
         userRepo.save(new User(newName, newPwd, newEmail, newhaircol, newWeight, newHeight, newGpa));
         response.setStatus(201);
         return "/users/addedUser";
@@ -67,17 +67,40 @@ public class UsersController {
     }
 
     // update student information in database
-
+    //redirect to update student page
     @PostMapping("/users/edit")
-    public String update(Model model){
+    public String update(Model model, @RequestParam Map<String, String> updateUser){
+        //get user-inputted uid 
+        int id = Integer.parseInt(updateUser.get("id"));
+        User updateuser = userRepo.findById(id).get();
+        model.addAttribute("usupdate", updateuser);
         return "/users/update";
     }
-
-    @PutMapping("/users/edit")
-    public String editUser(@PathVariable int id, @RequestParam Map<String, String> currentuser){
+    // allow users to change student info
+    @PutMapping("/users/updating/{uid}")
+    public String editUser(@PathVariable String uid, @RequestParam Map<String, String> currentuser, Model model){
+        
+        int id = Integer.parseInt(uid);
         User updateuser = userRepo.findById(id).get();
-        updateuser.setName(currentuser.get("name"));
+
+        String newName = currentuser.get("name");
+        String newPwd = currentuser.get("password");
+        String newEmail = currentuser.get("email");
+        String newhaircol = currentuser.get("haircolor");
+        int newWeight = Integer.parseInt(currentuser.get("weight"));
+        int newHeight = Integer.parseInt(currentuser.get("height"));
+        float newGpa = Integer.parseInt(currentuser.get("gpa"));
+
+        updateuser.setName(newName);
+        updateuser.setPassword(newPwd);
+        updateuser.setEmail(newEmail);
+        updateuser.setHaircolor(newhaircol);
+        updateuser.setHeight(newHeight);
+        updateuser.setWeight(newWeight);
+        updateuser.setGpa(newGpa);
+        //update the new student
         userRepo.save(updateuser);
+        model.addAttribute("us", updateuser);
         return "/users/view";
 
     }
@@ -90,12 +113,7 @@ public class UsersController {
         System.out.println("DELETE user");
         int id = Integer.parseInt(uid);
         User student = userRepo.findById(id).get();
-        if (student != null){
-            userRepo.delete(student);
-        }
-        else{
-            return "/users/deleted";
-        }
+        userRepo.delete(student);
         return "/users/view";
     }
 

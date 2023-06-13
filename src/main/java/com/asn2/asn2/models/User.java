@@ -16,12 +16,12 @@ public class User {
     private String haircolor;
     private int weight;
     private int height;
-    private int gpa;
+    private float gpa;
 
     //contructors below
     public User() {
     }
-    public User(String name, String password, String email, String haircolor, int weight, int height, int gpa) {
+    public User(String name, String password, String email, String haircolor, int weight, int height, float gpa) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -69,10 +69,10 @@ public class User {
     public void setHeight(int height) {
         this.height = height;
     }
-    public int getGpa() {
+    public float getGpa() {
         return gpa;
     }
-    public void setGpa(int gpa) {
+    public void setGpa(float gpa) {
         this.gpa = gpa;
     }
     public int getUid() {
