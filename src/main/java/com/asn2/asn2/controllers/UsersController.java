@@ -45,7 +45,7 @@ public class UsersController {
     @PostMapping("/users/adding")
     public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response){
         System.out.println("ADD user");
-
+        
         String newName = newuser.get("name");
         String newPwd = newuser.get("password");
         String newEmail = newuser.get("email");
