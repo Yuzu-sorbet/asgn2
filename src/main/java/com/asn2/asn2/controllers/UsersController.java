@@ -72,6 +72,7 @@ public class UsersController {
         System.out.println("Go to detailed student view.");
         int id = Integer.parseInt(curstudent.get("id"));
         User student = userRepo.findById(id).get();
+        //fetch student data and add to model for display
         model.addAttribute("userinfo", student);
         return "users/info";
     }
