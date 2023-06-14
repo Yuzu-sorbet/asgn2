@@ -67,7 +67,7 @@ public class UsersController {
         return "redirect:/users/view";
     }
     
-    // opens up detailed view of student page based on user-inputted uid
+    // opens up detailed display of student page based on user-inputted uid
     @PostMapping("/users/detail")
     public String studentDetail(Model model, @RequestParam Map<String, String> curstudent ){
         System.out.println("OPEN detailed student view");

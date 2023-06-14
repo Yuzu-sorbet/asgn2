@@ -8,8 +8,7 @@ This is a dynamic webpage used for assignment purposes.
 
 The Student Tracker app can be accessed via the homepage link from Render below. As Render auto-sleeps during periods of inactivity, please give the webpage some time to load.
 
-[Webapp link]
-(https://student-tracker-y79x.onrender.com/users/view)
+[Render Webapp Link](https://student-tracker-y79x.onrender.com/users/view)
 
 ## Features
 
@@ -34,8 +33,8 @@ Deleting Students
 Viewing and Deleting Students by UID
 * Only valid UIDS that exist in the database can be viewed and deleted, users who enter a non-existing UID will have the page return in error.
 
-Display Page
-* Updating existing students will change the display order and have the newest updated student appear at the bottom of the table
+Home Page
+* Updating existing students will change the display order and have the newest updated student appear at the bottom of the table.
 
 Updating Students
 * When pulling up the update student form, the password becomes blank but can be updated. 
