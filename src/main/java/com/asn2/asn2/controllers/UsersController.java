@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.asn2.asn2.models.User;
 import com.asn2.asn2.models.UserRepository;
@@ -87,19 +86,6 @@ public class UsersController {
         model.addAttribute("update", updateuser);
         return "users/update";
     }
-
-    /* 
-     @GetMapping("/users/updating/{uid}")
-    public ModelAndView updatePage(@PathVariable String uid){
-        //get user-inputted uid 
-        int id = Integer.parseInt(uid);
-        //retrieve student info from database and display in input boxes
-        ModelAndView editView = new ModelAndView("/users/update");
-        User updateuser = userRepo.findById(id).get();
-        editView.addObject("update", updateuser);
-        return editView;
-    }
-    */
 
     //save edited student info and return to main page with updates
     @PostMapping("/users/save")

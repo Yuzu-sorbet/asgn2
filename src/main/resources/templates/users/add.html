@@ -23,31 +23,31 @@
 					<div class="input-group">
 						
 						<input type="text" id="name" name="name" class="form-control form-control-lg" 
-                            placeholder="Name">
+                            placeholder="Name" required>
 						<input type="password" id="password" name="password" class="form-control form-control-lg" 
-                            placeholder="Password">
+                            placeholder="Password" required>
 						
 					</div>
                     <div class="input-group">
 						
 						<input type="email" id="email" name="email" class="form-control form-control-lg" 
-                            placeholder="Email address">
+                            placeholder="Email address" required>
 					
                         <input type="text" id="haircolor" name="haircolor" class="form-control form-control-lg" 
-                            placeholder="Hair color">
+                            placeholder="Hair color" required>
 					</div>
                     <div class="input-group">
 						
-						<input type="number" min="0" id="height" name="height" class="form-control form-control-lg" 
-                            placeholder="Height(in cm)">
+						<input type="number" min="0" max="1000" id="height" name="height" class="form-control form-control-lg" 
+                            placeholder="Height(in cm)" required>
 						
-						<input type="number" min="0" id="weight" name="weight" class="form-control form-control-lg" 
-                            placeholder="weight(in kg)">
+						<input type="number" min="0" max="1000" id="weight" name="weight" class="form-control form-control-lg" 
+                            placeholder="weight(in kg)" required>
 					</div>
                     <div class="mb-3">
 						
-						<input type="number" min="0" max="4" step="0.1" id="gpa" name="gpa" class="form-control form-control-lg" 
-                            placeholder="GPA">
+						<input type="number" min="0" max="100" step="0.1" id="gpa" name="gpa" class="form-control form-control-lg" 
+                            placeholder="GPA" required>
 					</div>
 					<!-- Submit button -->
                     
