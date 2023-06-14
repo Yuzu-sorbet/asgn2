@@ -43,7 +43,7 @@ Updating Students
 
 I first approached the project by designed a UI mockup for how I envisioned the workflow would go. The different pages are for different features navigated from the homepage and each with a different endpoint. 
 
-![UI Mockup](https://drive.google.com/file/d/1id0OS0ayTt9szm4tfSJ4nByJwVv9I6v9/view?usp=sharing)
+![UI Mockup](D:\Classes\CMPT 276\uimockup.PNG)
 
 
 
