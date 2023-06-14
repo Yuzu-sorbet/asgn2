@@ -16,7 +16,7 @@ Users are able to:
 * Add new students to the student tracker and see all students on display
 * Edit attributes of existing students 
 * Delete existing students via student UID
-* View a visual representation of each student in the form of colored rectangles by UID
+* View a visual display of each student in the form of colored rectangles by UID
 * See all students and their attributes in a table on the homepage
 * Go back to homepage via back button
 
@@ -42,6 +42,8 @@ Updating Students
 ## Initial Design and UI Mockup
 
 I first approached the project by designed a UI mockup for how I envisioned the workflow would go. The different pages are for different features navigated from the homepage and each with a different endpoint. 
+
+![UI Mockup](https://drive.google.com/file/d/1id0OS0ayTt9szm4tfSJ4nByJwVv9I6v9/view?usp=sharing)
 
 
 
