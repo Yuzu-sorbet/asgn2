@@ -1,1 +1,40 @@
-# asgn2
+# Student Tracker
+
+Student Tracker is a simple web-application that uses HTML, Javascript, CSS & Bootstrap along with Java SpringBoot and a PostgreSQL database. The app is hosted on Render. 
+
+This is a dynamic webpage used for assignment purposes. 
+
+## Web-application Usage
+
+The Student Tracker app can be accessed via the homepage link from Render below. As Render auto-sleeps during periods of inactivity, please give the webpage some time to load.
+(https://student-tracker-y79x.onrender.com/users/view)
+
+## Features
+
+Users are able to:
+* Add new students to the student tracker and see all students on display
+* Edit attributes of existing students 
+* Delete existing students via student UID
+* View a visual representation of each student in the form of colored rectangles by UID
+* See all students and their attributes in a table on the homepage
+* Go back to homepage via back button 
+
+## Feature Bugs
+
+Deleting Students
+* Display page is set to automatically refresh with student deleted but may need the user to manually refresh on PC.
+
+Viewing and Deleting Students by UID
+* Only valid UIDS that exist in the database can be viewed and deleted, users who enter a non-existing UID will have the page return in error.
+
+Display Page
+* Updating existing students will change the display order and have the newest updated student appear at the bottom of the table
+
+## Initial Design and UI Mockup
+
+
+
+
+
+
+
