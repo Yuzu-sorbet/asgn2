@@ -4,36 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Student Detailed View</title>
+    <!--Bootstrap CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
     <script>
-        function makeDivboxes(){
+
+        //function that creates colored rectangle based on student height, weight and hair color
+        function makeRectangle(){
+
+            //retrieve the div box for each student 
             var studentBoxes = document.getElementsByClassName('studentBox');
             var length = studentBoxes.length;
-            console.log('in function- no loop');
+
+            //iterate over each student to make a div box
             for (let i = 0; i<length; i++){
                 var box = studentBoxes[i];
+
+                // set height, width and color of box to be student height, weight and hair color
                 var boxWidth = parseInt(document.getElementById("weight").innerText);
                 var boxHeight = parseInt(document.getElementById("height").innerText);
                 var boxColor = document.getElementById("haircolor").innerText.toLowerCase();
+
                 box.style.width = boxWidth*0.5 + 'px';
                 box.style.height = boxHeight*0.5 + 'px';
                 box.style.backgroundColor = boxColor;
-                console.log(boxHeight, boxWidth);
-                console.log('created');
+
             }
         }
+
     </script>
 </head>
 <body>
-    <!--Back button-->
+    <!--BACK button-->
     <div class="container-fluid mt-2">
         <form action="/users/back" method="post">
             <input class="btn btn-primary btn-lg" type="submit" value="BACK"></input>
         </form>
 
+    <!--Table with student attributes-->
     <table class="table">
+
         <thead>
             <tr>
                 <th scope="row">Name</th>
@@ -45,17 +56,16 @@
                 <th scope="col">GPA</th>
                 <th scope="col">UID</th>
                 <th scope="col">Instructions</th>
-
-                
             </tr>
         </thead>
+
+        <!--Thymeleaf list of student attributes-->
         <tbody><ul style="list-style:none;">
             <li th:each="user:${userinfo}">
                 <tr>
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.password}"></td>
                     <td th:text="${user.email}"></td>
-                    
                     <td id="haircolor">
                         <span th:text="${user.haircolor}"></span>
                     </td>
@@ -68,11 +78,12 @@
                     <td th:text="${user.gpa}"></td>
                     <td th:text="${user.uid}"></td>
                     <td>Please generate visuals before viewing.</td>
-                    
                 </tr>
+
+                <!--Generate student colored rectangle button-->
                 <div class="row">
                     <div class="col">
-                        <input class="btn btn-primary" type="button" value="Generate Visual" onclick="makeDivboxes()"></input>
+                        <input class="btn btn-primary" type="button" value="Generate Visual" onclick="makeRectangle()"></input>
                     </div>
                 </div>
                 
@@ -80,7 +91,7 @@
         </ul></tbody>
     </table></div>
 
-    <!--Student Visual Box Div-->
+    <!--Student Rectangle Div Constructor-->
     <div class="d-flex justify-content-center">
         <div class="studentBox"></div>
     </div>

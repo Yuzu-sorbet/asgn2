@@ -18,7 +18,7 @@ public class User {
     private int height;
     private float gpa;
 
-    //contructors below
+    //contructors for creating student
     public User() {
     }
     public User(String name, String password, String email, String haircolor, int weight, int height, float gpa) {
@@ -32,7 +32,7 @@ public class User {
         
     }
 
-    // allow users to edit attributes
+    // allow users to edit and set attributes 
     public String getName() {
         return name;
     }

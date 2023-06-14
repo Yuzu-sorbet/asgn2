@@ -26,27 +26,28 @@ public class UsersController {
     @GetMapping("/users/view")
     public String getAllUsers(Model model){
 
-        System.out.println("GET all users");
-        //get all users from database
+        System.out.println("GET all students");
+        // get all students from database
         List<User> users = userRepo.findAll();
       
-        //end of database call
+        // add all students to be displayed
         model.addAttribute("us", users);
         return "users/showAll";
     }
 
-    //endpoint for opening up the add student input form
+    // opens up the add student input form from add student button
     @PostMapping("/users/addstudent")
     public String redirectAdd(Model model){
-        System.out.println("redirect to add students page");
+        System.out.println("OPEN add student page");
         return "users/add";
     }
 
-    //endpoint for submitting new students to the database
+    // saves new student attributes and student to database based on user input
     @PostMapping("/users/adding")
     public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response){
-        System.out.println("ADD user");
+        System.out.println("ADD student");
         
+        // retrieve user input and create new student 
         String newName = newuser.get("name");
         String newPwd = newuser.get("password");
         String newEmail = newuser.get("email");
@@ -56,23 +57,26 @@ public class UsersController {
         float newGpa = Float.parseFloat(newuser.get("gpa"));
         userRepo.save(new User(newName, newPwd, newEmail, newhaircol, newWeight, newHeight, newGpa));
         response.setStatus(201);
-        return "users/addedUser";
+        return "redirect:/users/view";
     }
 
-    //return to main page from input form
+    // return to main page from input form when back button is pressed
     @PostMapping("/users/back")
     public String backButton(Model model){
-        System.out.println("Back to student view page");
+        System.out.println("BACK to student view page");
         return "redirect:/users/view";
     }
     
-    //see visual representation of student based on height/weight  
+    // opens up detailed view of student page based on user-inputted uid
     @PostMapping("/users/detail")
     public String studentDetail(Model model, @RequestParam Map<String, String> curstudent ){
-        System.out.println("Go to detailed student view.");
+        System.out.println("OPEN detailed student view");
+
+        // find student in database with corresponding uid
         int id = Integer.parseInt(curstudent.get("id"));
         User student = userRepo.findById(id).get();
-        //fetch student data and add to model for display
+
+        // fetch student data and add to model for display
         model.addAttribute("userinfo", student);
         return "users/info";
     }
@@ -80,30 +84,35 @@ public class UsersController {
     // open up student info in edit view and allow user to edit all fields except uid
     @GetMapping("/users/updating/{uid}")
     public String updatePage(Model model, @PathVariable String uid){
-        //get user-inputted uid 
+        System.out.println("EDIT student");
+
+        // find student in database with corresponding uid
         int id = Integer.parseInt(uid);
+
         //retrieve student info from database and display in input boxes
         User updateuser = userRepo.findById(id).get();
         model.addAttribute("update", updateuser);
         return "users/update";
     }
 
-    //save edited student info and return to main page with updates
+    // save edited student attributes and return to display page
     @PostMapping("/users/save")
     public String saveStudentinfo(@ModelAttribute("update") User user){
+        System.out.println("SAVE student");
         userRepo.save(user);
         return "redirect:/users/view";
     }
     
-    //delete student from database
+    // delete student from database based on uid
     @DeleteMapping("/users/delete/{uid}")
     public String deleteUser(@PathVariable String uid){
-        
-        System.out.println("DELETE user");
+        System.out.println("DELETE student");
+        // find student with corresponding uid 
         int id = Integer.parseInt(uid);
         User student = userRepo.findById(id).get();
+
         userRepo.delete(student);
-        return "users/deletedUser";
+        return "redirect:/users/view";
     }
 
 }
